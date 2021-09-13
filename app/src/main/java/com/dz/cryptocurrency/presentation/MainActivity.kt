@@ -8,8 +8,12 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.dz.cryptocurrency.common.Constants.PARAM_COIN_ID
 import com.dz.cryptocurrency.domain.model.Coin
+import com.dz.cryptocurrency.presentation.coindetail.components.CoinDetailScreen
 import com.dz.cryptocurrency.presentation.coinlist.components.CoinListItem
 import com.dz.cryptocurrency.presentation.coinlist.components.CoinListScreen
 import com.dz.cryptocurrency.ui.theme.CryptoCurrencyTheme
@@ -25,22 +29,26 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
                     val navController = rememberNavController()
-                    CoinListScreen(navController = navController)
+                    NavHost(
+                        navController = navController,
+                        startDestination = Screen.CoinListScreen.route
+                    ) {
+                        composable(
+                            route = Screen.CoinListScreen.route
+                        ) {
+                            CoinListScreen(navController = navController)
+                        }
+
+                        composable(
+                            route = Screen.CoinDetailScreen.route + "/{${PARAM_COIN_ID}}"
+                        ) {
+                            CoinDetailScreen()
+                        }
+                    }
                 }
             }
         }
     }
-}
 
 
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    CryptoCurrencyTheme {
-        // A surface container using the 'background' color from the theme
-        Surface(color = MaterialTheme.colors.background) {
-            
-        }
-    }
 }
