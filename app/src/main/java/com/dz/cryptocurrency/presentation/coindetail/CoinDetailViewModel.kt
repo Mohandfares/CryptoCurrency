@@ -16,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CoinDetailViewModel @Inject constructor(
     private val coinUseCase: GetCoinUseCase,
-    savedStateHandle: SavedStateHandle
+    private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private val _state = mutableStateOf<CoinDetailState>(CoinDetailState())
@@ -36,5 +36,11 @@ class CoinDetailViewModel @Inject constructor(
                 is Resource.Success -> _state.value = CoinDetailState(coin = result.data)
             }
         }.launchIn(viewModelScope)
+    }
+
+    fun tryAgain() {
+        savedStateHandle.get<String>(PARAM_COIN_ID)?.let {
+            getCoin(it)
+        }
     }
 }

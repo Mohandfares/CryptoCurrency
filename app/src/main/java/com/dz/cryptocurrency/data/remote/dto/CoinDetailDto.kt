@@ -4,7 +4,7 @@ import com.dz.cryptocurrency.domain.model.CoinDetail
 import com.google.gson.annotations.SerializedName
 
 data class CoinDetailDto(
-    val description: String,
+    val description: String?,
     @SerializedName("development_status")
     val developmentStatus: String,
     @SerializedName("first_data_at")
@@ -45,7 +45,7 @@ fun CoinDetailDto.toCoinDetail(): CoinDetail =
     CoinDetail(
         coinId = id,
         name = name,
-        description = description,
+        description = description ?: "",
         symbol = symbol,
         rank = rank,
         isActive = isActive,
