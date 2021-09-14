@@ -4,6 +4,7 @@ import com.dz.cryptocurrency.common.Resource
 import com.dz.cryptocurrency.data.remote.dto.toCoinDetail
 import com.dz.cryptocurrency.domain.model.CoinDetail
 import com.dz.cryptocurrency.domain.repository.CoinRepository
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException

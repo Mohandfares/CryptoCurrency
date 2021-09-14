@@ -14,13 +14,16 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.dz.cryptocurrency.data.remote.dto.TeamMember
+import com.dz.cryptocurrency.presentation.Screen
 import com.dz.cryptocurrency.presentation.coindetail.CoinDetailViewModel
+import com.dz.cryptocurrency.presentation.emptystateui.EmptyStateUI
 import com.dz.cryptocurrency.ui.theme.ColorPrimary
 import com.dz.cryptocurrency.ui.theme.Teal200
 import com.google.accompanist.flowlayout.FlowRow
 
 @Composable
 fun CoinDetailScreen(
+    navController: NavController,
     viewModel: CoinDetailViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
@@ -70,7 +73,12 @@ fun CoinDetailScreen(
                             modifier = Modifier.fillMaxWidth()
                         ) {
                             coinDetail.tags.forEach { tag ->
-                                CoinTag(tag = tag)
+                                CoinTag(
+                                    tag = tag,
+                                    onClickItem = {
+                                        navController.navigate(Screen.TagDetailScreen.route + "/${tag.id}")
+                                    }
+                                )
                             }
                         }
                         Spacer(modifier = Modifier.height(15.dp))
@@ -97,23 +105,11 @@ fun CoinDetailScreen(
         }
 
         if (state.error.isNotBlank()) {
-            Column(modifier = Modifier.align(Alignment.Center)) {
-                Button(
-                    onClick = { viewModel.tryAgain() },
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
-                ) {
-                    Text(text = "Try again")
-                }
-                Spacer(modifier = Modifier.height(5.dp))
-                Text(
-                    text = state.error,
-                    color = MaterialTheme.colors.error,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 20.dp)
-                )
-            }
+            EmptyStateUI(
+                error = state.error,
+                modifier = Modifier.align(Alignment.Center),
+                onClick = { viewModel.tryAgain() }
+            )
         }
 
         if (state.isLoading) {

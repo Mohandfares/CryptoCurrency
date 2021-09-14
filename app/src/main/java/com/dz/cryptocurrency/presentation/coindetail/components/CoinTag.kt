@@ -1,6 +1,7 @@
 package com.dz.cryptocurrency.presentation.coindetail.components
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -10,9 +11,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.dz.cryptocurrency.data.remote.dto.Tag
 
 @Composable
-fun CoinTag(tag: String) {
+fun CoinTag(tag: Tag,onClickItem: (Tag) -> Unit = {}) {
     Box(
         modifier = Modifier
             .border(
@@ -20,13 +22,14 @@ fun CoinTag(tag: String) {
                 color = MaterialTheme.colors.primary,
                 shape = RoundedCornerShape(100.dp)
             )
+            .clickable { onClickItem(tag) }
             .padding(10.dp)
     ) {
         Text(
-            text = tag,
+            text = tag.name,
             color = MaterialTheme.colors.primary,
             style = MaterialTheme.typography.body2,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
     }
 }
