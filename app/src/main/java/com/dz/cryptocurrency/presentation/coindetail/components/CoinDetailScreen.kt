@@ -1,6 +1,7 @@
 package com.dz.cryptocurrency.presentation.coindetail.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -122,7 +123,8 @@ fun CoinDetailScreen(
                             )
                             .clickable {
                                 navController.navigate(Screen.TwitterListScreen.route + "/${coinDetail.coinId}")
-                            }.align(Alignment.Center)
+                            }
+                            .align(Alignment.Center)
                             .padding(10.dp),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
@@ -131,6 +133,7 @@ fun CoinDetailScreen(
                             modifier = Modifier.size(24.dp),
                             contentDescription = ""
                         )
+                        Spacer(modifier = Modifier.width(5.dp))
                         Text(
                             text = "${coinDetail.name} twitter",
                             style = MaterialTheme.typography.h4,

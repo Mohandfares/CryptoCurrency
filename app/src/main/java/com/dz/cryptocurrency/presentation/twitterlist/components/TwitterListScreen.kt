@@ -25,10 +25,11 @@ fun TwitterListScreen(
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             item {
                 Column(modifier = Modifier.fillMaxWidth()) {
+                    Spacer(modifier = Modifier.height(5.dp))
                     Image(
                         painter = painterResource(id = R.drawable.twitter),
                         modifier = Modifier
-                            .size(30.dp)
+                            .size(36.dp)
                             .align(Alignment.CenterHorizontally),
                         contentDescription = ""
                     )
