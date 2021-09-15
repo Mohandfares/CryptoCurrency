@@ -1,24 +1,33 @@
 package com.dz.cryptocurrency.presentation.coindetail.components
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.dz.cryptocurrency.R
 import com.dz.cryptocurrency.data.remote.dto.TeamMember
 import com.dz.cryptocurrency.presentation.Screen
 import com.dz.cryptocurrency.presentation.coindetail.CoinDetailViewModel
 import com.dz.cryptocurrency.presentation.emptystateui.EmptyStateUI
 import com.dz.cryptocurrency.ui.theme.ColorPrimary
 import com.dz.cryptocurrency.ui.theme.Teal200
+import com.dz.cryptocurrency.ui.theme.TwitterColor
 import com.google.accompanist.flowlayout.FlowRow
 
 @Composable
@@ -100,6 +109,36 @@ fun CoinDetailScreen(
                             .padding(10.dp)
                     )
                     Divider()
+                }
+
+                item {
+                    Spacer(modifier = Modifier.height(15.dp))
+                    Row(
+                        modifier = Modifier
+                            .border(
+                                width = 1.dp,
+                                color = TwitterColor,
+                                shape = RoundedCornerShape(100.dp)
+                            )
+                            .clickable {
+                                navController.navigate(Screen.TwitterListScreen.route + "/${coinDetail.coinId}")
+                            }.align(Alignment.Center)
+                            .padding(10.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.twitter),
+                            modifier = Modifier.size(24.dp),
+                            contentDescription = ""
+                        )
+                        Text(
+                            text = "${coinDetail.name} twitter",
+                            style = MaterialTheme.typography.h4,
+                            fontWeight = FontWeight.Medium,
+                            color = TwitterColor,
+                            modifier = Modifier.align(Alignment.CenterVertically)
+                        )
+                    }
                 }
             }
         }

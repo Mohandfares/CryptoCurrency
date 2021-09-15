@@ -13,6 +13,7 @@ import com.dz.cryptocurrency.common.Constants.PARAM_TAG_ID
 import com.dz.cryptocurrency.presentation.coindetail.components.CoinDetailScreen
 import com.dz.cryptocurrency.presentation.coinlist.components.CoinListScreen
 import com.dz.cryptocurrency.presentation.tagdetail.components.TagDetailScreen
+import com.dz.cryptocurrency.presentation.twitterlist.components.TwitterListScreen
 import com.dz.cryptocurrency.ui.theme.CryptoCurrencyTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -48,6 +49,12 @@ class MainActivity : ComponentActivity() {
                             route = Screen.TagDetailScreen.route + "/{${PARAM_TAG_ID}}"
                         ) {
                             TagDetailScreen()
+                        }
+
+                        composable(
+                            route = Screen.TwitterListScreen.route + "/{${PARAM_COIN_ID}}"
+                        ) {
+                            TwitterListScreen()
                         }
                     }
                 }

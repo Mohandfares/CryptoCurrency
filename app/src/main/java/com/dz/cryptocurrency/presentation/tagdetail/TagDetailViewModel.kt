@@ -23,7 +23,7 @@ class TagDetailViewModel @Inject constructor(
     val state: State<TagDetailState> = _state
 
     init {
-        savedStateHandle.get<String>(PARAM_TAG_ID)?.let { tagId ->
+        savedStateHandle.get<String?>(PARAM_TAG_ID)?.let { tagId ->
             getTag(tagId)
         }
     }

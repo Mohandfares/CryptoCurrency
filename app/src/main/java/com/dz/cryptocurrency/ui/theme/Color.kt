@@ -8,6 +8,7 @@ val Purple700 = Color(0xFF3700B3)
 val Teal200 = Color(0xFF03DAC5)
 
 val DarkGray = Color(0xFF202020)
-val MediumGray = Color(0xFF505050)
+val MediumGray = Color(0xFF737373)
 val ColorPrimary = Color(0xFFBB86FC)
 val TextWhite = Color(0xFFEEEEEE)
+val TwitterColor = Color(29, 161, 242)

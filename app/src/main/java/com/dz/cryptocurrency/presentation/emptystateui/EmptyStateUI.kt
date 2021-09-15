@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.dz.cryptocurrency.R
 
 @Composable
-fun EmptyStateUI(error: String,modifier: Modifier,onClick: () -> Unit) {
+fun EmptyStateUI(error: String,modifier: Modifier,onClick: () -> Unit = {}, tryAgain: Boolean = true) {
     Column(modifier = modifier) {
         Image(
             painter = painterResource(id = R.drawable.emptystate),
@@ -22,13 +22,15 @@ fun EmptyStateUI(error: String,modifier: Modifier,onClick: () -> Unit) {
             contentDescription = ""
         )
         Spacer(modifier = Modifier.height(15.dp))
-        Button(
-            onClick = { onClick() },
-            modifier = Modifier.align(Alignment.CenterHorizontally)
-        ) {
-            Text(text = "Try again")
+        if (tryAgain) {
+            Button(
+                onClick = { onClick() },
+                modifier = Modifier.align(Alignment.CenterHorizontally),
+            ) {
+                Text(text = "Try again")
+            }
+            Spacer(modifier = Modifier.height(5.dp))
         }
-        Spacer(modifier = Modifier.height(5.dp))
         Text(
             text = error,
             textAlign = TextAlign.Center,
