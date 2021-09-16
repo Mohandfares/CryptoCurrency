@@ -23,14 +23,21 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.dz.cryptocurrency.CryptoCurrencyApplication
+import com.dz.cryptocurrency.data.remote.dto.LinksProfile
 import com.dz.cryptocurrency.data.remote.dto.Position
 import com.dz.cryptocurrency.domain.model.PeopleProfile
 import com.dz.cryptocurrency.presentation.emptystateui.EmptyStateUI
 import com.dz.cryptocurrency.presentation.peopleprofile.PeopleProfileViewModel
 import com.dz.cryptocurrency.ui.theme.ColorPrimary
+import com.dz.cryptocurrency.ui.theme.CryptoCurrencyTheme
 import com.dz.cryptocurrency.ui.theme.Teal200
+import com.dz.cryptocurrency.ui.theme.TwitterColor
 
 
 @Composable
@@ -42,7 +49,7 @@ fun PeopleProfileScreen(
         state.peopleProfile?.let { peopleProfile ->
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(20.dp)
+                contentPadding = PaddingValues(10.dp)
             ) {
                 item { 
                     HeaderProfile(
@@ -64,9 +71,26 @@ fun PeopleProfileScreen(
                 items(peopleProfile.positions) { position ->
                     PositionItem(
                         position = position,
-                        modifier = Modifier.fillMaxWidth().padding(5.dp)
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(5.dp)
                     )
                     Divider()
+                }
+
+                item {
+                    Spacer(modifier = Modifier.height(15.dp))
+                    Text(
+                        text = "Links",
+                        style = MaterialTheme.typography.h2
+                    )
+                    Spacer(modifier = Modifier.height(5.dp))
+                    ProfileLinks(
+                        linksProfile = peopleProfile.links,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(5.dp)
+                    )
                 }
             }
         }
@@ -148,5 +172,94 @@ fun PositionItem(
             style = MaterialTheme.typography.body2,
             fontStyle = FontStyle.Italic
         )
+    }
+}
+
+@Composable
+fun LinkItem(
+    painter: Painter,
+    url: String,
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Image(
+            painter = painter, 
+            contentDescription = "",
+            modifier = Modifier.size(24.dp)
+        )
+
+        Column(
+            modifier = Modifier.padding(horizontal = 16.dp),
+            verticalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = url,
+                color = TwitterColor,
+                fontSize = 14.sp
+            )
+        }
+    }
+}
+
+@Composable
+fun ProfileLinks(
+    linksProfile: LinksProfile,
+    modifier: Modifier
+) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.Center
+    ) {
+        if (!linksProfile.twitter.isNullOrEmpty()) {
+            linksProfile.twitter.forEach { twitter ->
+                LinkItem(
+                    painter = painterResource(id = R.drawable.twitter),
+                    url = twitter.url,
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+            }
+        }
+
+        if (!linksProfile.linkedin.isNullOrEmpty()) {
+            linksProfile.linkedin.forEach { linkedin ->
+                LinkItem(
+                    painter = painterResource(id = R.drawable.linkedin),
+                    url = linkedin.url,
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+            }
+        }
+
+        if (!linksProfile.github.isNullOrEmpty()) {
+            linksProfile.github.forEach { github ->
+                LinkItem(
+                    painter = painterResource(id = R.drawable.octocat),
+                    url = github.url,
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+            }
+        }
+
+        if (!linksProfile.medium.isNullOrEmpty()) {
+            linksProfile.medium.forEach { medium ->
+                LinkItem(
+                    painter = painterResource(id = R.drawable.medium),
+                    url = medium.url,
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+            }
+        }
+
+        if (!linksProfile.additional.isNullOrEmpty()) {
+            linksProfile.additional.forEach { additional ->
+                LinkItem(
+                    painter = painterResource(id = R.drawable.ic_baseline_public_24),
+                    url = additional.url,
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+            }
+        }
     }
 }
