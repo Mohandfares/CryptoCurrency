@@ -9,9 +9,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.dz.cryptocurrency.common.Constants.PARAM_COIN_ID
+import com.dz.cryptocurrency.common.Constants.PARAM_PEOPLE_ID
 import com.dz.cryptocurrency.common.Constants.PARAM_TAG_ID
 import com.dz.cryptocurrency.presentation.coindetail.components.CoinDetailScreen
 import com.dz.cryptocurrency.presentation.coinlist.components.CoinListScreen
+import com.dz.cryptocurrency.presentation.peopleprofile.components.PeopleProfileScreen
 import com.dz.cryptocurrency.presentation.tagdetail.components.TagDetailScreen
 import com.dz.cryptocurrency.presentation.twitterlist.components.TwitterListScreen
 import com.dz.cryptocurrency.ui.theme.CryptoCurrencyTheme
@@ -55,6 +57,12 @@ class MainActivity : ComponentActivity() {
                             route = Screen.TwitterListScreen.route + "/{${PARAM_COIN_ID}}"
                         ) {
                             TwitterListScreen()
+                        }
+
+                        composable(
+                            route = Screen.PeopleProfileScreen.route + "/{${PARAM_PEOPLE_ID}}"
+                        ) {
+                            PeopleProfileScreen()
                         }
                     }
                 }

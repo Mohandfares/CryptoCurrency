@@ -141,6 +141,7 @@ fun CoinDetailScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(10.dp)
+                            .clickable { navController.navigate(Screen.PeopleProfileScreen.route + "/${teamMember.id}") }
                     )
                     Divider()
                 }

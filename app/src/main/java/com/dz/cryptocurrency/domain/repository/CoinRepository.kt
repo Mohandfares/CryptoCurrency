@@ -1,9 +1,6 @@
 package com.dz.cryptocurrency.domain.repository
 
-import com.dz.cryptocurrency.data.remote.dto.CoinDetailDto
-import com.dz.cryptocurrency.data.remote.dto.CoinDto
-import com.dz.cryptocurrency.data.remote.dto.TagDetailDto
-import com.dz.cryptocurrency.data.remote.dto.TwitterDto
+import com.dz.cryptocurrency.data.remote.dto.*
 
 
 interface CoinRepository {
@@ -15,4 +12,6 @@ interface CoinRepository {
     suspend fun getTagById(tagId: String): TagDetailDto
 
     suspend fun getTwitter(coinId: String): List<TwitterDto>
+
+    suspend fun getPeople(peopleId: String): PeopleProfileDto
 }

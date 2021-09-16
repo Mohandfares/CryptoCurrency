@@ -42,14 +42,6 @@ fun TwitterListScreen(
             }
         }
 
-        if (state.twitters.isEmpty()) {
-            EmptyStateUI(
-                error = "No Twitter status !",
-                modifier = Modifier.align(Alignment.Center),
-                tryAgain = false
-            )
-        }
-
         if (state.error.isNotBlank()) {
             EmptyStateUI(
                 error = state.error,
@@ -60,6 +52,14 @@ fun TwitterListScreen(
 
         if (state.isLoading) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+        }
+
+        if (state.twitters.isEmpty()) {
+            EmptyStateUI(
+                error = "No Twitter status !",
+                modifier = Modifier.align(Alignment.Center),
+                tryAgain = false
+            )
         }
     }
 }
