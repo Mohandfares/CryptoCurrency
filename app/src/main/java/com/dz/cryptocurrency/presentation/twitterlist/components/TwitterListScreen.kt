@@ -13,7 +13,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.dz.cryptocurrency.R
-import com.dz.cryptocurrency.presentation.emptystateui.EmptyStateUI
+import com.dz.cryptocurrency.presentation.common.EmptyStateUI
 import com.dz.cryptocurrency.presentation.twitterlist.TwitterListViewModel
 
 @Composable

@@ -17,16 +17,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.dz.cryptocurrency.R
-import com.dz.cryptocurrency.data.remote.dto.TeamMember
 import com.dz.cryptocurrency.domain.model.toPriceFormat
 import com.dz.cryptocurrency.presentation.Screen
 import com.dz.cryptocurrency.presentation.coindetail.CoinDetailViewModel
-import com.dz.cryptocurrency.presentation.emptystateui.EmptyStateUI
+import com.dz.cryptocurrency.presentation.common.EmptyStateUI
 import com.dz.cryptocurrency.ui.theme.ColorPrimary
 import com.dz.cryptocurrency.ui.theme.Teal200
 import com.dz.cryptocurrency.ui.theme.TwitterColor
@@ -168,7 +166,6 @@ fun CoinDetailScreen(
                     TeamListItem(
                         teamMember = teamMember,
                         modifier = Modifier
-                            .fillMaxWidth()
                             .padding(10.dp)
                             .clickable { navController.navigate(Screen.PeopleProfileScreen.route + "/${teamMember.id}") }
                     )

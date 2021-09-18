@@ -62,7 +62,7 @@ class MainActivity : ComponentActivity() {
                         composable(
                             route = Screen.PeopleProfileScreen.route + "/{${PARAM_PEOPLE_ID}}"
                         ) {
-                            PeopleProfileScreen()
+                            PeopleProfileScreen(context = this@MainActivity)
                         }
                     }
                 }

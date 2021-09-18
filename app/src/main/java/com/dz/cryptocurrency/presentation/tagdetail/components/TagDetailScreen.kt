@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.dz.cryptocurrency.domain.model.getTag
 import com.dz.cryptocurrency.presentation.coindetail.components.CoinTag
-import com.dz.cryptocurrency.presentation.emptystateui.EmptyStateUI
+import com.dz.cryptocurrency.presentation.common.EmptyStateUI
 import com.dz.cryptocurrency.presentation.tagdetail.TagDetailViewModel
 import com.dz.cryptocurrency.ui.theme.Teal200
 

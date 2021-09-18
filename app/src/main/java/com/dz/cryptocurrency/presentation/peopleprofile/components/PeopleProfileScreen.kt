@@ -1,6 +1,8 @@
 package com.dz.cryptocurrency.presentation.peopleprofile.components
 
-import com.dz.cryptocurrency.R
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -15,7 +17,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.Center
-import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -23,25 +24,25 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.dz.cryptocurrency.CryptoCurrencyApplication
+import com.dz.cryptocurrency.R
 import com.dz.cryptocurrency.data.remote.dto.LinksProfile
 import com.dz.cryptocurrency.data.remote.dto.Position
+import com.dz.cryptocurrency.data.remote.dto.linksSize
 import com.dz.cryptocurrency.domain.model.PeopleProfile
-import com.dz.cryptocurrency.presentation.emptystateui.EmptyStateUI
+import com.dz.cryptocurrency.presentation.common.EmptyStateUI
+import com.dz.cryptocurrency.presentation.common.RoundImageProfile
 import com.dz.cryptocurrency.presentation.peopleprofile.PeopleProfileViewModel
 import com.dz.cryptocurrency.ui.theme.ColorPrimary
-import com.dz.cryptocurrency.ui.theme.CryptoCurrencyTheme
 import com.dz.cryptocurrency.ui.theme.Teal200
 import com.dz.cryptocurrency.ui.theme.TwitterColor
 
 
 @Composable
 fun PeopleProfileScreen(
+    context: Context,
     viewModel: PeopleProfileViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
@@ -79,18 +80,22 @@ fun PeopleProfileScreen(
                 }
 
                 item {
-                    Spacer(modifier = Modifier.height(15.dp))
-                    Text(
-                        text = "Links",
-                        style = MaterialTheme.typography.h2
-                    )
-                    Spacer(modifier = Modifier.height(5.dp))
-                    ProfileLinks(
-                        linksProfile = peopleProfile.links,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(5.dp)
-                    )
+                    val size = peopleProfile.links.linksSize()
+                    if (size > 0) {
+                        Spacer(modifier = Modifier.height(15.dp))
+                        Text(
+                            text = "Links",
+                            style = MaterialTheme.typography.h2
+                        )
+                        Spacer(modifier = Modifier.height(5.dp))
+                        ProfileLinks(
+                            context = context,
+                            linksProfile = peopleProfile.links,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(5.dp),
+                        )
+                    }
                 }
             }
         }
@@ -132,27 +137,6 @@ fun HeaderProfile(
 }
 
 @Composable
-fun RoundImageProfile(
-    painter: Painter,
-    modifier: Modifier = Modifier
-) {
-    Image(
-        painter = painter,
-        contentDescription = null,
-        modifier = modifier
-            .aspectRatio(1f, matchHeightConstraintsFirst = true)
-            .border(
-                width = 1.dp,
-                color = Color.LightGray,
-                shape = CircleShape
-            )
-            .padding(3.dp)
-            .clip(CircleShape),
-        contentScale = ContentScale.Crop
-    )
-}
-
-@Composable
 fun PositionItem(
     position: Position,
     modifier: Modifier = Modifier
@@ -179,6 +163,7 @@ fun PositionItem(
 fun LinkItem(
     painter: Painter,
     url: String,
+    onClickUrl: (String) -> Unit,
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -197,7 +182,8 @@ fun LinkItem(
             Text(
                 text = url,
                 color = TwitterColor,
-                fontSize = 14.sp
+                fontSize = 14.sp,
+                modifier = Modifier.clickable { onClickUrl(url) }
             )
         }
     }
@@ -205,8 +191,9 @@ fun LinkItem(
 
 @Composable
 fun ProfileLinks(
+    context: Context,
     linksProfile: LinksProfile,
-    modifier: Modifier
+    modifier: Modifier,
 ) {
     Column(
         modifier = modifier,
@@ -217,6 +204,7 @@ fun ProfileLinks(
                 LinkItem(
                     painter = painterResource(id = R.drawable.twitter),
                     url = twitter.url,
+                    onClickUrl = { context.browserLink(twitter.url) }
                 )
                 Spacer(modifier = Modifier.height(10.dp))
             }
@@ -227,6 +215,7 @@ fun ProfileLinks(
                 LinkItem(
                     painter = painterResource(id = R.drawable.linkedin),
                     url = linkedin.url,
+                    onClickUrl = { context.browserLink(linkedin.url) }
                 )
                 Spacer(modifier = Modifier.height(10.dp))
             }
@@ -237,6 +226,7 @@ fun ProfileLinks(
                 LinkItem(
                     painter = painterResource(id = R.drawable.octocat),
                     url = github.url,
+                    onClickUrl = { context.browserLink(github.url) }
                 )
                 Spacer(modifier = Modifier.height(10.dp))
             }
@@ -247,6 +237,7 @@ fun ProfileLinks(
                 LinkItem(
                     painter = painterResource(id = R.drawable.medium),
                     url = medium.url,
+                    onClickUrl = { context.browserLink(medium.url) }
                 )
                 Spacer(modifier = Modifier.height(10.dp))
             }
@@ -255,11 +246,34 @@ fun ProfileLinks(
         if (!linksProfile.additional.isNullOrEmpty()) {
             linksProfile.additional.forEach { additional ->
                 LinkItem(
-                    painter = painterResource(id = R.drawable.ic_baseline_public_24),
+                    painter = painterResource(id = additionalResource(additional.url)),
                     url = additional.url,
+                    onClickUrl = { context.browserLink(additional.url) }
                 )
                 Spacer(modifier = Modifier.height(10.dp))
             }
         }
     }
+}
+
+fun additionalResource(url: String): Int {
+    return when {
+        url.contains("facebook") -> {
+            R.drawable.ic_baseline_facebook_24
+        }
+        url.contains("youtube") -> {
+            R.drawable.youtube
+        }
+        url.contains("wikipedia") -> {
+            R.drawable.wikipedia
+        }
+        else -> {
+            R.drawable.ic_baseline_public_24
+        }
+    }
+}
+
+fun Context.browserLink(link: String) {
+    val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
+    startActivity(browserIntent)
 }
