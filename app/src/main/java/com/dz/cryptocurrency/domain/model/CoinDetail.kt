@@ -11,5 +11,6 @@ data class CoinDetail(
     val rank: Int,
     val isActive: Boolean,
     val tags: List<Tag>,
-    val teamMember: List<TeamMember>
+    val teamMember: List<TeamMember>,
+    val usdPrice: UsdPrice
 )

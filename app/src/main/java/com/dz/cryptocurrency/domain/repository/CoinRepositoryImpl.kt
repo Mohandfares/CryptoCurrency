@@ -13,4 +13,5 @@ class CoinRepositoryImpl @Inject constructor(
     override suspend fun getTagById(tagId: String): TagDetailDto = api.getTag(tagId)
     override suspend fun getTwitter(coinId: String): List<TwitterDto> = api.getTwitter(coinId)
     override suspend fun getPeople(peopleId: String): PeopleProfileDto = api.getPeople(peopleId)
+    override suspend fun getTickers(coinId: String): TickersDto = api.getTickers(coinId)
 }

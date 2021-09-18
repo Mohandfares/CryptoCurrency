@@ -23,6 +23,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.dz.cryptocurrency.R
 import com.dz.cryptocurrency.data.remote.dto.TeamMember
+import com.dz.cryptocurrency.domain.model.toPriceFormat
 import com.dz.cryptocurrency.presentation.Screen
 import com.dz.cryptocurrency.presentation.coindetail.CoinDetailViewModel
 import com.dz.cryptocurrency.presentation.emptystateui.EmptyStateUI
@@ -45,33 +46,31 @@ fun CoinDetailScreen(
             ) {
 
                 item {
-                    Row(
-                        modifier = Modifier
-                            .border(
-                                width = 1.dp,
-                                color = TwitterColor,
-                                shape = RoundedCornerShape(100.dp)
+                    if (coinDetail.usdPrice.price != 0.0) {
+                        val usd = coinDetail.usdPrice
+                        Row(
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(
+                                    color = Teal200,
+                                    shape = RoundedCornerShape(10.dp)
+                                )
+                                .padding(10.dp)
+                        ) {
+                            Text(
+                                text = usd.toPriceFormat(),
+                                style = MaterialTheme.typography.h2,
+                                modifier = Modifier.align(Alignment.CenterVertically),
+                                color = Color.Black
                             )
-                            .clickable {
-                                navController.navigate(Screen.TwitterListScreen.route + "/${coinDetail.coinId}")
-                            }
-                            .align(Alignment.Center)
-                            .padding(10.dp),
-                        horizontalArrangement = Arrangement.End
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.twitter),
-                            modifier = Modifier.size(24.dp),
-                            contentDescription = ""
-                        )
-                        Spacer(modifier = Modifier.width(5.dp))
-                        Text(
-                            text = "${coinDetail.name} twitter",
-                            style = MaterialTheme.typography.h4,
-                            fontWeight = FontWeight.Medium,
-                            color = TwitterColor,
-                            modifier = Modifier.align(Alignment.CenterVertically)
-                        )
+                            Text(
+                                text = "USD",
+                                style = MaterialTheme.typography.h2,
+                                modifier = Modifier.align(Alignment.CenterVertically),
+                                color = Color.Black
+                            )
+                        }
                     }
                     Spacer(modifier = Modifier.height(15.dp))
                 }
@@ -102,6 +101,36 @@ fun CoinDetailScreen(
                         text = coinDetail.description,
                         style = MaterialTheme.typography.body2
                     )
+                    Spacer(modifier = Modifier.height(15.dp))
+
+                    Row(
+                        modifier = Modifier
+                            .border(
+                                width = 1.dp,
+                                color = TwitterColor,
+                                shape = RoundedCornerShape(100.dp)
+                            )
+                            .clickable {
+                                navController.navigate(Screen.TwitterListScreen.route + "/${coinDetail.coinId}")
+                            }
+                            .align(Alignment.Center)
+                            .padding(10.dp),
+                        horizontalArrangement = Arrangement.End
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.twitter),
+                            modifier = Modifier.size(24.dp),
+                            contentDescription = ""
+                        )
+                        Spacer(modifier = Modifier.width(5.dp))
+                        Text(
+                            text = "${coinDetail.name} twitter",
+                            style = MaterialTheme.typography.h4,
+                            fontWeight = FontWeight.Medium,
+                            color = TwitterColor,
+                            modifier = Modifier.align(Alignment.CenterVertically)
+                        )
+                    }
                     Spacer(modifier = Modifier.height(15.dp))
 
                     if (coinDetail.tags.isNotEmpty()) {

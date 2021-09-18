@@ -2,7 +2,6 @@ package com.dz.cryptocurrency.domain.repository
 
 import com.dz.cryptocurrency.data.remote.dto.*
 
-
 interface CoinRepository {
 
     suspend fun getCoins(): List<CoinDto>
@@ -14,4 +13,6 @@ interface CoinRepository {
     suspend fun getTwitter(coinId: String): List<TwitterDto>
 
     suspend fun getPeople(peopleId: String): PeopleProfileDto
+
+    suspend fun getTickers(coinId: String): TickersDto
 }

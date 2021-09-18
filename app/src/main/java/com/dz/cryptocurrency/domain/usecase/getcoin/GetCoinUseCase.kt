@@ -2,6 +2,7 @@ package com.dz.cryptocurrency.domain.usecase.getcoin
 
 import com.dz.cryptocurrency.common.Resource
 import com.dz.cryptocurrency.data.remote.dto.toCoinDetail
+import com.dz.cryptocurrency.data.remote.dto.toUSD
 import com.dz.cryptocurrency.domain.model.CoinDetail
 import com.dz.cryptocurrency.domain.repository.CoinRepository
 import kotlinx.coroutines.delay
@@ -17,7 +18,8 @@ class GetCoinUseCase @Inject constructor(
     operator fun invoke(coinId: String): Flow<Resource<CoinDetail>> = flow {
         try {
             emit(Resource.Loading<CoinDetail>())
-            val coin = repository.getCoinById(coinId).toCoinDetail()
+            val price = repository.getTickers(coinId).toUSD()
+            val coin = repository.getCoinById(coinId).toCoinDetail().copy(usdPrice = price)
             emit(Resource.Success<CoinDetail>(coin))
         } catch (e: HttpException) {
             emit(Resource.Error<CoinDetail>(e.localizedMessage ?: "An unexpected error"))
