@@ -1,6 +1,7 @@
 package com.dz.cryptocurrency.data.remote.dto
 
 import com.dz.cryptocurrency.domain.model.Coin
+import com.dz.cryptocurrency.domain.model.UsdPrice
 import com.google.gson.annotations.SerializedName
 
 data class CoinDto(
@@ -21,5 +22,6 @@ fun CoinDto.toCoin(): Coin =
         isActive = isActive,
         name = name,
         rank = rank,
-        symbol = symbol
+        symbol = symbol,
+        usdPrice = UsdPrice(0.0)
     )

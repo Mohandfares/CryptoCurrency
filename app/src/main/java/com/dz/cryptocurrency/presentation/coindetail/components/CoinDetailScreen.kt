@@ -166,8 +166,8 @@ fun CoinDetailScreen(
                     TeamListItem(
                         teamMember = teamMember,
                         modifier = Modifier
-                            .padding(10.dp)
-                            .clickable { navController.navigate(Screen.PeopleProfileScreen.route + "/${teamMember.id}") }
+                            .padding(10.dp),
+                        onClickItem = { navController.navigate(Screen.PeopleProfileScreen.route + "/${teamMember.id}") }
                     )
                     Divider()
                 }

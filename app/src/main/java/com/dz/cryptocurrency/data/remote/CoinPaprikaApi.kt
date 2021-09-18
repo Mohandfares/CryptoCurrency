@@ -21,6 +21,9 @@ interface CoinPaprikaApi {
     @GET("/v1/people/{peopleId}")
     suspend fun getPeople(@Path("peopleId") peopleId: String): PeopleProfileDto
 
+    @GET("/v1/tickers")
+    suspend fun getTickers(): List<TickersDto>
+
     @GET("/v1/tickers/{coinId}")
     suspend fun getTickers(@Path("coinId") coinId: String): TickersDto
 }

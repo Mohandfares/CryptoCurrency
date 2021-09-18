@@ -14,5 +14,7 @@ interface CoinRepository {
 
     suspend fun getPeople(peopleId: String): PeopleProfileDto
 
+    suspend fun getTickers(): List<TickersDto>
+
     suspend fun getTickers(coinId: String): TickersDto
 }

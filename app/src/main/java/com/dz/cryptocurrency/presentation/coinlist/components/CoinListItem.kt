@@ -12,6 +12,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.dz.cryptocurrency.domain.model.Coin
+import com.dz.cryptocurrency.domain.model.toPriceFormat
 import com.dz.cryptocurrency.ui.theme.ColorPrimary
 import com.dz.cryptocurrency.ui.theme.Teal200
 
@@ -41,8 +42,8 @@ fun CoinListItem(
         }
 
         Text(
-            text = if (coin.isActive) "active" else "inactive",
-            color = if (coin.isActive) Teal200 else ColorPrimary,
+            text = "${coin.usdPrice.toPriceFormat()} USD",
+            color = Teal200,
             fontStyle = FontStyle.Italic,
             textAlign = TextAlign.End,
             style = MaterialTheme.typography.body2,
