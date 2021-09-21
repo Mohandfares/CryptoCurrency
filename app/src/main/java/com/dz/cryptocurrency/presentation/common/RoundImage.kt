@@ -30,6 +30,6 @@ fun RoundImageProfile(
             )
             .padding(3.dp)
             .clip(CircleShape),
-        contentScale = ContentScale.Crop
+        contentScale = ContentScale.Fit
     )
 }
