@@ -40,7 +40,7 @@ fun CoinDetailScreen(
         state.coin?.let { coinDetail ->
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(20.dp)
+                contentPadding = PaddingValues(10.dp)
             ) {
 
                 item {

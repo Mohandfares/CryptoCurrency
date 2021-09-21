@@ -9,12 +9,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dz.cryptocurrency.R
 import com.dz.cryptocurrency.data.remote.dto.TeamMember
 import com.dz.cryptocurrency.presentation.common.RoundImageProfile
-import com.dz.cryptocurrency.ui.theme.CryptoCurrencyTheme
+
 
 
 @Composable
