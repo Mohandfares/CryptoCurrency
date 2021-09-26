@@ -16,6 +16,7 @@ import androidx.navigation.NavController
 import com.dz.cryptocurrency.presentation.coinlist.CoinListViewModel
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import com.dz.cryptocurrency.R
 import com.dz.cryptocurrency.presentation.Screen
 import com.dz.cryptocurrency.presentation.common.EmptyStateUI
@@ -25,7 +26,6 @@ import com.dz.cryptocurrency.ui.theme.Teal200
 @Composable
 fun CoinListScreen(
     navController: NavController,
-    context: Context,
     viewModel: CoinListViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
@@ -43,7 +43,7 @@ fun CoinListScreen(
                     .padding(10.dp)
             ) {
                 Text(
-                    text = context.getString(R.string.cryptocurrencylist),
+                    text = stringResource(R.string.cryptocurrencylist),
                     style = MaterialTheme.typography.h2,
                     modifier = Modifier.align(Alignment.CenterVertically),
                     color = Color.Black

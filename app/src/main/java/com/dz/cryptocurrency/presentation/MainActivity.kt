@@ -36,10 +36,7 @@ class MainActivity : ComponentActivity() {
                         composable(
                             route = Screen.CoinListScreen.route
                         ) {
-                            CoinListScreen(
-                                context = this@MainActivity,
-                                navController = navController
-                            )
+                            CoinListScreen(navController = navController)
                         }
 
                         composable(
